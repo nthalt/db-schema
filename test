@@ -74,3 +74,27 @@ VALUES
 ('mountain-view-cabin', 'loft-bedroom', '/images/rooms/mountain-view-cabin-loft.jpg', 'Loft Bedroom', 1),
 ('mountain-view-cabin', 'pine-bedroom', '/images/rooms/mountain-view-cabin-pine.jpg', 'Pine Bedroom', 1),
 ('mountain-view-cabin', 'oak-bedroom', '/images/rooms/mountain-view-cabin-oak.jpg', 'Oak Bedroom', 1);
+
+
+
+
+
+
+
+
+
+
+
+
+
+UPDATE hotel_details
+SET images = array_cat(images, ARRAY[
+    '/images/hotels/mountain-view-cabin/p1.jpg',
+    '/images/hotels/mountain-view-cabin/p2.jpg',
+    '/images/hotels/mountain-view-cabin/p3.jpg',
+    '/images/hotels/mountain-view-cabin/p4.jpg',
+    '/images/hotels/mountain-view-cabin/p5.jpg',
+    '/images/hotels/mountain-view-cabin/p6.jpg',
+    '/images/hotels/mountain-view-cabin/p7.jpg'
+])
+WHERE slug = 'mountain-view-cabin';
