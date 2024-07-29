@@ -1,0 +1,76 @@
+CREATE TABLE hotel_details (
+    slug VARCHAR(255) PRIMARY KEY,
+    images TEXT[],
+    title VARCHAR(255) NOT NULL,
+    description TEXT,
+    guest_count INTEGER,
+    bedroom_count INTEGER,
+    bathroom_count INTEGER,
+    amenities TEXT[],
+    host_information JSONB,
+    address TEXT,
+    latitude DECIMAL(10, 8),
+    longitude DECIMAL(11, 8)
+);
+
+CREATE TABLE room_information (
+    id SERIAL PRIMARY KEY,
+    hotel_slug VARCHAR(255) REFERENCES hotel_details(slug),
+    room_slug VARCHAR(255),
+    room_image TEXT,
+    room_title VARCHAR(255),
+    bedroom_count INTEGER
+);
+
+
+INSERT INTO hotel_details (slug, images, title, description, guest_count, bedroom_count, bathroom_count, amenities, host_information, address, latitude, longitude) 
+VALUES 
+('luxury-suite-downtown', 
+ ARRAY['/images/hotels/luxury-suite-downtown/main.jpg', '/images/hotels/luxury-suite-downtown/living-room.jpg'],
+ 'Luxury Suite Downtown',
+ 'Experience luxury in the heart of the city with our spacious downtown suite.',
+ 4,
+ 2,
+ 2,
+ ARRAY['Wi-Fi', 'Air conditioning', 'Kitchen', 'Washing machine'],
+ '{name: John Doe, phone: +1234567890, email: john@example.com}',
+ '123 Main St, Downtown, City, 12345',
+ 40.7128,
+ -74.0060
+),
+('cozy-beachfront-cottage', 
+ ARRAY['/images/hotels/cozy-beachfront-cottage/exterior.jpg', '/images/hotels/cozy-beachfront-cottage/beach-view.jpg'],
+ 'Cozy Beachfront Cottage',
+ 'Relax and unwind in our charming beachfront cottage with stunning ocean views.',
+ 2,
+ 1,
+ 1,
+ ARRAY['Wi-Fi', 'Beach access', 'Kitchen', 'Parking'],
+ '{name: Jane Smith, phone: +1987654321, email: jane@example.com}',
+ '456 Beach Rd, Seaside, 67890',
+ 25.7617,
+ -80.1918
+),
+('mountain-view-cabin', 
+ ARRAY['/images/hotels/mountain-view-cabin/exterior.jpg', '/images/hotels/mountain-view-cabin/view.jpg'],
+ 'Mountain View Cabin',
+ 'Escape to nature in our rustic cabin with breathtaking mountain views.',
+ 6,
+ 3,
+ 2,
+ ARRAY['Wi-Fi', 'Fireplace', 'Hot tub', 'Hiking trails'],
+ '{name: Bob Johnson, phone: +1122334455, email: bob@example.com}',
+ '789 Mountain Trail, Highlands, 54321',
+ 39.7392,
+ -104.9903
+);
+
+-- Insert data into room_information table
+INSERT INTO room_information (hotel_slug, room_slug, room_image, room_title, bedroom_count)
+VALUES
+('luxury-suite-downtown', 'master-bedroom', '/images/rooms/luxury-suite-downtown-master.jpg', 'Master Bedroom', 1),
+('luxury-suite-downtown', 'guest-bedroom', '/images/rooms/luxury-suite-downtown-guest.jpg', 'Guest Bedroom', 1),
+('cozy-beachfront-cottage', 'beach-view-bedroom', '/images/rooms/cozy-beachfront-cottage-bedroom.jpg', 'Beach View Bedroom', 1),
+('mountain-view-cabin', 'loft-bedroom', '/images/rooms/mountain-view-cabin-loft.jpg', 'Loft Bedroom', 1),
+('mountain-view-cabin', 'pine-bedroom', '/images/rooms/mountain-view-cabin-pine.jpg', 'Pine Bedroom', 1),
+('mountain-view-cabin', 'oak-bedroom', '/images/rooms/mountain-view-cabin-oak.jpg', 'Oak Bedroom', 1);
